@@ -1,0 +1,29 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://192.168.18.129:3306/leyou
+    username: root
+    password: root
+  rabbitmq:
+    host: 192.168.18.129
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+  redis:
+    host: 192.168.18.129
+    port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:    # 以ip为准
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+mybatis:
+  type-aliases-package: com.leyou.user.pojo    # 指定包的别名
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql语句
+

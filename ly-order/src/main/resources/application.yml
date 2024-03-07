@@ -1,0 +1,40 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql:/192.168.18.129:3306/leyou
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+  jackson:  # 字段属性为null不参与序列化
+    default-property-inclusion: non_null
+  redis:
+    host: 192.168.213.128
+    port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5  # 拉去服务列表间隔
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true  # 使用指定ip
+mybatis:
+  type-aliases-package: com.leyou.order.pojo
+  configuration: # 打印sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+ly:         # 订单微服务 也需要认证鉴权
+  jwt:
+    pubKeyPath: C:\\tmp\\rsa\\rsa.pub     # 公钥地址
+    cookieName: LY_TOKEN    # cookie 的值
+  worker:     # 使用的是构造函数传参
+    workerId: 1 # 工作机器id
+    datacenterId: 1 # 序列号
+  pay:
+    appId: wx8397f8696b538317  # 公众账号id
+    mchId: 1473426802 # 商户号
+    key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb # 生成的秘钥
+    connectTimeoutMs: 5000 # 连接超时时长
+    readTimeoutMs: 10000   # 读取超时时长

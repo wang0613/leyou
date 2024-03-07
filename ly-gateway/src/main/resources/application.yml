@@ -1,0 +1,49 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: api-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5 #网关拉取服务列表时长
+zuul:
+  prefix: /api   # 路由路径前缀
+  routes:
+    item-service: /item/**          # 商品微服务映射路径
+    search-service: /search/**      # 搜索微服务
+    upload-service:
+      path: /upload/**                     # 文件上传微服务映射地址
+      serviceId: upload-service
+      strip-prefix: false                  #去除前缀
+    user-service: /user/**      # 用户微服务
+    auth-service: /auth/**      # 授权中心
+    cart-service: /cart/**      # 购物车微服务
+    order-service: /order/**      # 订单微服务
+  add-host-header: true      # 携带请求本身的header头信息
+  sensitive-headers:         # 配置禁止使用的头信息，这里设置为null，否则set-cookie失效
+hystrix:
+  command:
+    default:
+      execuction:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # 设置hystrix的超时时间为5000ms
+ribbon:
+  ConnectionTimeout: 1000 # 建立连接超时时长
+  ReadTimeout: 3500  # 读取的超时时长
+  MaxAutoRetries: 0 #当前服务重试次数
+  MaxAutoRetriesNextServer: 0 #切换服务重试次数
+ly:
+  jwt:
+    pubKeyPath: C:\\tmp\\rsa\\rsa.pub     # 公钥地址
+    cookieName: LY_TOKEN    # cookie 的值
+  filter:    # 过滤的白名单
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item

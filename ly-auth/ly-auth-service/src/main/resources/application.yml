@@ -1,0 +1,20 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: auth-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 10   # 拉去微服务的时间  如果需要调用其他微服务 必须配置
+  instance: # 心跳一般都配置
+    lease-renewal-interval-in-seconds: 5   #5秒维维持心跳
+    lease-expiration-duration-in-seconds: 15 #失效时长
+ly:
+  jwt:
+    secret: leyou@Login(Auth}*^31)&wang%      # 登录校验的密钥 salt值
+    pubKeyPath: C:\\tmp\\rsa\\rsa.pub     # 公钥地址
+    priKeyPath: C:\\tmp\\rsa\\rsa.pri     # 私钥地址
+    expire: 30      # 过期时间,单位分钟
+    cookieName: LY_TOKEN    # cookie 的值
